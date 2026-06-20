@@ -115,4 +115,43 @@ A filter, motor, LED, or power converter can respond to the average effect of th
 - Duty cycle controls the ratio between ON time and total period.
 - ESP32 can generate PWM using hardware peripherals.
 - A logic analyzer can measure PWM frequency, period, and duty cycle.
-- PWM is a fundamental concept in embedded systems and power electronics.
+- PWM is a fundamental concept in embedded systems and power electronics
+
+## Serial-Controlled PWM Experiment
+
+In this part, the PWM signal is controlled using commands from the Arduino Serial Monitor.
+
+Supported commands:
+
+```text
+duty 10
+duty 50
+duty 90
+freq 1000
+freq 5000
+status
+```
+
+The firmware receives text commands through the USB Serial connection and updates the PWM output on GPIO18.
+
+## Measurement Result: Serial-Controlled PWM
+
+The PWM output was measured using PulseView and the USB logic analyzer.
+
+When changing the duty command, the measured waveform changed accordingly:
+
+```text
+duty 10  -> short HIGH time, long LOW time
+duty 50  -> approximately equal HIGH and LOW time
+duty 90  -> long HIGH time, short LOW time
+```
+
+This confirmed that the ESP32 can update PWM duty cycle in real time based on Serial commands.
+
+## What I Learned From Serial-Controlled PWM
+
+- A PC can send control commands to the ESP32 through Serial.
+- Firmware can parse simple text commands and update hardware outputs.
+- PWM duty cycle can be changed in real time.
+- A logic analyzer can verify that software commands actually change the electrical signal.
+- This is a basic structure for a control interface, similar to sending setpoints to an embedded controller..
